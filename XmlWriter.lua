@@ -4,7 +4,7 @@ Copyright © 2015 The developers of markuplanguagewriter. See the COPYRIGHT file
 ]]--
 
 
-local tabelize = require('halimede.tabelize').tabelize
+local tabelize = require('halimede.table.tabelize').tabelize
 local assert = require('halimede.assert')
 local Writer = requireSibling('Writer')
 
