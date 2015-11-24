@@ -5,7 +5,6 @@ Copyright © 2015 The developers of markuplanguagewriter. See the COPYRIGHT file
 
 
 local tabelize = require('halimede.table.tabelize').tabelize
-local assert = require('halimede').assert
 
 
 local alwaysEscapedCharacters = {}
@@ -20,7 +19,7 @@ alwaysEscapedCharacters = setmetatable(alwaysEscapedCharacters, {
 )
 
 function module.new(_constructAttribute)
-	assert.parameterTypeIsFunction(_constructAttribute)
+	assert.parameterTypeIsFunction('_constructAttribute', _constructAttribute)
 	
 	-- Could use a closure, but that prevents access to a parent's _constructAttribute
 	local functions = {
@@ -28,7 +27,7 @@ function module.new(_constructAttribute)
 	}
 	
 	function functions.writeText(rawText)
-		assert.parameterTypeIsString(rawText)
+		assert.parameterTypeIsString('rawText', rawText)
 	
 		return rawText:gsub('[<>&]', function(matchedCharacter)
 			return alwaysEscapedCharacters[matchedCharacter]
@@ -39,8 +38,8 @@ function module.new(_constructAttribute)
 		local attributesArray = tabelize()
 
 		for attributeName, attributeValue in pairs(attributesTable) do
-			assert.parameterTypeIsString(attributeName)
-			assert.parameterTypeIsString(attributeValue)
+			assert.parameterTypeIsString('attributeName', attributeName)
+			assert.parameterTypeIsString('attributeValue', attributeValue)
 	
 			functions._constructAttribute(alwaysEscapedCharacters, attributesArray, attributeName, attributeValue)
 		end
@@ -51,33 +50,33 @@ function module.new(_constructAttribute)
 	end
 
 	function functions.writeElementNameWithAttributes(elementName, attributesTable)
-		assert.parameterTypeIsString(elementName)
-		assert.parameterTypeIsTable(attributesTable)
+		assert.parameterTypeIsString('elementName', elementName)
+		assert.parameterTypeIsTable('attributesTable', attributesTable)
 	
 		return elementName .. functions._writeAttributes(attributesTable)
 	end
 
 	function functions.writeElementOpenTag(elementNameOrElementNameWithAttributes)
-		assert.parameterTypeIsString(elementNameOrElementNameWithAttributes)
+		assert.parameterTypeIsString('elementNameOrElementNameWithAttributes', elementNameOrElementNameWithAttributes)
 	
 		return '<' .. elementNameOrElementNameWithAttributes .. '>'
 	end
 
 	function functions.writeElementEmptyTag(elementNameOrElementNameWithAttributes)
-		assert.parameterTypeIsString(elementNameOrElementNameWithAttributes)
+		assert.parameterTypeIsString('elementNameOrElementNameWithAttributes', elementNameOrElementNameWithAttributes)
 	
 		return '<' .. elementNameOrElementNameWithAttributes .. '/>'
 	end
 
 	function functions.writeElementCloseTag(elementName)
-		assert.parameterTypeIsString(elementName)
+		assert.parameterTypeIsString('elementName', elementName)
 	
 		return '</' .. elementName .. '>'
 	end
 
 	function functions.writeElement(elementName, phrasingContent, optionalAttributesTable)
-		assert.parameterTypeIsString(elementName)
-		assert.parameterTypeIsString(phrasingContent)
+		assert.parameterTypeIsString('elementName', elementName)
+		assert.parameterTypeIsString('phrasingContent', phrasingContent)
 	
 		local attributesTable
 		if optionalAttributesTable == nil then
