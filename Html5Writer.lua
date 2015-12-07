@@ -9,7 +9,7 @@ local Writer = require.sibling('Writer')
 local XmlWriter = require.sibling('XmlWriter')
 
 
-moduleclass('Html5Writer', XmlWriter)
+local Html5Writer = moduleclass('Html5Writer', XmlWriter)
 
 function module:initialize()
 	XmlWriter.initialize(self)
@@ -29,3 +29,5 @@ function module:_constructAttribute(alwaysEscapedCharacters, attributesArray, at
 	
 	return XmlWriter._constructAttribute(self, alwaysEscapedCharacters, attributesArray, attributeName, attributeValue)
 end
+
+Writer._makeStaticClosureFunctions(Html5Writer)

@@ -11,6 +11,18 @@ local exception = halimede.exception
 
 moduleclass('Writer')
 
+assert.globalTypeIsFunction('ipairs')
+local exposedStaticClosureFunctionNames = {'writeText', 'writeElementNameWithAttributes', 'writeElementOpenTag', 'writeElementEmptyTag', 'writeElementCloseTag', 'writeElement'}
+module.static._makeStaticClosureFunctions = function(WriterClass, ...)
+	local self = WriterClass:new(...)
+	
+	for functionName in ipairs(exposedStaticClosureFunctionNames) do
+		WriterClass.static[functionName] = function(...)
+			return self[functionName](self, ...)
+		end
+	end
+end
+
 assert.globalTypeIsFunction('setmetatable')
 local alwaysEscapedCharacters = {}
 alwaysEscapedCharacters['<'] = '&lt;'
@@ -30,15 +42,6 @@ function module:_constructAttribute()
 	exception.throw('Abstract Method')
 end
 
-assert.globalTableHasChieldFieldOfTypeFunction('string', 'gsub')
-function module:writeText(rawText)
-	assert.parameterTypeIsString('rawText', rawText)
-
-	return rawText:gsub('[<>&]', function(matchedCharacter)
-		return alwaysEscapedCharacters[matchedCharacter]
-	end)
-end
-
 assert.globalTypeIsFunction('pairs')
 function module:_writeAttributes(attributesTable)
 	local attributesArray = tabelize()
@@ -53,6 +56,15 @@ function module:_writeAttributes(attributesTable)
 	-- Sorted to ensure stable, diff-able output
 	attributesArray:sort()
 	return attributesArray:concat()
+end
+
+assert.globalTableHasChieldFieldOfTypeFunction('string', 'gsub')
+function module:writeText(rawText)
+	assert.parameterTypeIsString('rawText', rawText)
+
+	return rawText:gsub('[<>&]', function(matchedCharacter)
+		return alwaysEscapedCharacters[matchedCharacter]
+	end)
 end
 
 function module:writeElementNameWithAttributes(elementName, attributesTable)

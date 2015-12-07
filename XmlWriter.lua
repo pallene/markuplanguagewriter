@@ -8,7 +8,7 @@ local halimede = require('halimede')
 local Writer = require.sibling('Writer')
 
 
-moduleclass('XmlWriter', Writer)
+local XmlWriter = moduleclass('XmlWriter', Writer)
 
 function module:initialize()
 	Writer.initialize(self)
@@ -58,3 +58,5 @@ function _constructAttribute(alwaysEscapedCharacters, attributesArray, attribute
 	
 	attributesArray:insert(' ' .. attributeName .. '=' .. quotationMark .. escapedAttributeValue .. quotationMark)
 end
+
+Writer._makeStaticClosureFunctions(XmlWriter)
