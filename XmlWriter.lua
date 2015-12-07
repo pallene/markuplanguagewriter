@@ -4,11 +4,18 @@ Copyright © 2015 The developers of markuplanguagewriter. See the COPYRIGHT file
 ]]--
 
 
-local tabelize = require('halimede.table.tabelize').tabelize
-local Writer = requireSibling('Writer')
+local halimede = require('halimede')
+local Writer = require.sibling('Writer')
 
-local function _constructAttribute(alwaysEscapedCharacters, attributesArray, attributeName, attributeValue)
-	
+
+moduleclass('XmlWriter', Writer)
+
+function module:initialize()
+	Writer.initialize(self)
+end
+
+assert.globalTableHasChieldFieldOfTypeFunction('string', 'gsub')
+function _constructAttribute(alwaysEscapedCharacters, attributesArray, attributeName, attributeValue)	
 	local quotationMark = '"'
 	local doubleQuotesPresent = false
 	local singleQuotePresent = false
@@ -51,5 +58,3 @@ local function _constructAttribute(alwaysEscapedCharacters, attributesArray, att
 	
 	attributesArray:insert(' ' .. attributeName .. '=' .. quotationMark .. escapedAttributeValue .. quotationMark)
 end
-
-return Writer.new(_constructAttribute)

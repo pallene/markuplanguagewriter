@@ -4,11 +4,19 @@ Copyright © 2015 The developers of markuplanguagewriter. See the COPYRIGHT file
 ]]--
 
 
-local tabelize = require('halimede.table.tabelize').tabelize
-local Writer = requireSibling('Writer')
-local XmlWriter = requireSibling('XmlWriter')
+local halimede = require('halimede')
+local Writer = require.sibling('Writer')
+local XmlWriter = require.sibling('XmlWriter')
 
-local function _constructAttribute(alwaysEscapedCharacters, attributesArray, attributeName, attributeValue)
+
+moduleclass('Html5Writer', XmlWriter)
+
+function module:initialize()
+	XmlWriter.initialize(self)
+end
+
+assert.globalTableHasChieldFieldOfTypeFunction('string', 'find')
+function module:_constructAttribute(alwaysEscapedCharacters, attributesArray, attributeName, attributeValue)
 	if attributeValue == '' then
 		return
 	end
@@ -19,8 +27,5 @@ local function _constructAttribute(alwaysEscapedCharacters, attributesArray, att
 		return
 	end
 	
-	-- Dirty; operates on a different instance
-	return XmlWriter._constructAttribute(alwaysEscapedCharacters, attributesArray, attributeName, attributeValue)
+	return XmlWriter._constructAttribute(self, alwaysEscapedCharacters, attributesArray, attributeName, attributeValue)
 end
-
-return Writer.new(_constructAttribute)
