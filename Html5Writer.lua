@@ -30,4 +30,4 @@ function module:_constructAttribute(alwaysEscapedCharacters, attributesArray, at
 	return XmlWriter._constructAttribute(self, alwaysEscapedCharacters, attributesArray, attributeName, attributeValue)
 end
 
-Writer._makeStaticClosureFunctions(Html5Writer)
+module.static.singleton = module:new()

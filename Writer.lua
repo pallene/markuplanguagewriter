@@ -11,18 +11,6 @@ local exception = halimede.exception
 
 moduleclass('Writer')
 
-assert.globalTypeIsFunction('ipairs')
-local exposedStaticClosureFunctionNames = {'writeText', 'writeElementNameWithAttributes', 'writeElementOpenTag', 'writeElementEmptyTag', 'writeElementCloseTag', 'writeElement'}
-module.static._makeStaticClosureFunctions = function(WriterClass, ...)
-	local self = WriterClass:new(...)
-	
-	for functionName in ipairs(exposedStaticClosureFunctionNames) do
-		WriterClass.static[functionName] = function(...)
-			return self[functionName](self, ...)
-		end
-	end
-end
-
 assert.globalTypeIsFunction('setmetatable')
 local alwaysEscapedCharacters = {}
 alwaysEscapedCharacters['<'] = '&lt;'

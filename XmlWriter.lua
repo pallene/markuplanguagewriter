@@ -59,4 +59,4 @@ function _constructAttribute(alwaysEscapedCharacters, attributesArray, attribute
 	attributesArray:insert(' ' .. attributeName .. '=' .. quotationMark .. escapedAttributeValue .. quotationMark)
 end
 
-Writer._makeStaticClosureFunctions(XmlWriter)
+module.static.singleton = module:new()
