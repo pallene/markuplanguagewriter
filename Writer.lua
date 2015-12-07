@@ -98,3 +98,7 @@ function module:writeElement(elementName, phrasingContent, optionalAttributesTab
 	end
 	return self:writeElementOpenTag(elementNameWithAttributes) .. phrasingContent .. self:writeElementCloseTag(elementName)
 end
+
+function module:writeElementWithoutPhrasingContent(elementName, optionalAttributesTable)
+	return self:writeElement(elementName, '', optionalAttributesTable)
+end
