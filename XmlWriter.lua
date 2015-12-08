@@ -14,7 +14,7 @@ function module:initialize()
 	Writer.initialize(self)
 end
 
-assert.globalTableHasChieldFieldOfTypeFunction('string', 'gsub')
+assert.globalTableHasChieldFieldOfTypeFunctionOrCall('string', 'gsub')
 function _constructAttribute(alwaysEscapedCharacters, attributesArray, attributeName, attributeValue)	
 	local quotationMark = '"'
 	local doubleQuotesPresent = false

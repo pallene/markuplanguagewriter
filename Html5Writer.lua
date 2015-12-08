@@ -15,7 +15,7 @@ function module:initialize()
 	XmlWriter.initialize(self)
 end
 
-assert.globalTableHasChieldFieldOfTypeFunction('string', 'find')
+assert.globalTableHasChieldFieldOfTypeFunctionOrCall('string', 'find')
 function module:_constructAttribute(alwaysEscapedCharacters, attributesArray, attributeName, attributeValue)
 	if attributeValue == '' then
 		return

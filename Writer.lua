@@ -11,7 +11,7 @@ local exception = halimede.exception
 
 moduleclass('Writer')
 
-assert.globalTypeIsFunction('setmetatable')
+assert.globalTypeIsFunctionOrCall('setmetatable')
 local alwaysEscapedCharacters = {}
 alwaysEscapedCharacters['<'] = '&lt;'
 alwaysEscapedCharacters['>'] = '&gt;'
@@ -30,7 +30,7 @@ function module:_constructAttribute()
 	exception.throw('Abstract Method')
 end
 
-assert.globalTypeIsFunction('pairs')
+assert.globalTypeIsFunctionOrCall('pairs')
 function module:_writeAttributes(attributesTable)
 	local attributesArray = tabelize()
 
@@ -46,7 +46,7 @@ function module:_writeAttributes(attributesTable)
 	return attributesArray:concat()
 end
 
-assert.globalTableHasChieldFieldOfTypeFunction('string', 'gsub')
+assert.globalTableHasChieldFieldOfTypeFunctionOrCall('string', 'gsub')
 function module:writeText(rawText)
 	assert.parameterTypeIsString('rawText', rawText)
 
