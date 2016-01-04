@@ -5,7 +5,7 @@ Copyright © 2015 The developers of markuplanguagewriter. See the COPYRIGHT file
 
 
 local halimede = require('halimede')
-local Writer = require.sibling('Writer')
+local Writer = require.sibling.Writer
 
 
 local XmlWriter = moduleclass('XmlWriter', Writer)
